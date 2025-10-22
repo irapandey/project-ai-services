@@ -12,7 +12,6 @@ import {
 import "./App.scss"
 import HeaderNav from "./Header.jsx"
 import { Theme, Content, Grid, Column } from "@carbon/react";
-import { customLoadHistory } from "./customLoadHistory.js";
 import { customSendMessage } from "./customSendMessage_2.jsx";
 import { renderUserDefinedResponse } from "./renderUserDefinedResponse.js";
 
