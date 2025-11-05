@@ -258,9 +258,9 @@ func getTargetSMTLevel() (*int, error) {
 }
 
 func init() {
-	createCmd.Flags().StringVarP(&templateName, "template-name", "t", "", "Template name to use (required)")
-	createCmd.MarkFlagRequired("template-name")
-	createCmd.Flags().BoolVarP(&downloadModels, "download-models", "d", true, "Download models during application creation(location: /var/lib/ai-services/models/)")
+	createCmd.Flags().StringVarP(&templateName, "template", "t", "", "Template name to use (required)")
+	createCmd.MarkFlagRequired("template")
+	createCmd.Flags().BoolVarP(&downloadModels, "download-models", "d", true, "Download models during application creation. Set to false to skip model download if local models are already available at /var/lib/ai-services/models/, particularly beneficial in air-gapped networks with limited internet access. If not set correctly, the create command may fail.")
 }
 
 // fetchAppTemplateIndex -> Returns the index of app template if exists, otherwise -1
