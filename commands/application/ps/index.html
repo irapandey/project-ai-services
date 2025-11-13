@@ -1066,12 +1066,14 @@
   <h1>ps</h1>
 
 <h3 id="description">Description</h3>
-<p>Similar to <code>podman ps</code> - lists containers deployed by AI-services </p>
+<p>Similar to <code>podman ps</code> - lists containers deployed by AI-services. The command lists all the pods from all applications if application name is not provided.</p>
 <h3 id="usage">Usage</h3>
-<pre><code class="language-bash">ai-services application ps [name] [flags]
+<pre><code class="language-bash">ai-services application ps
+ai-services application ps [name] [flags]
 </code></pre>
 <h3 id="example">Example</h3>
-<pre><code class="language-bash">ai-services application ps rag-application-1
+<pre><code class="language-bash">ai-services application ps
+ai-services application ps rag-application-1
 </code></pre>
 <h3 id="flags">Flags</h3>
 <table>
