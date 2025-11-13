@@ -12,7 +12,7 @@ ai-services application start [name] [flags]
 
 ```bash
 ai-services application start rag-application-1
-ai-services application start --pod rag-application-1--pod-name
+ai-services application start rag-application-1 --pod rag-application-1--pod-name
 ```
 
 ### Flags

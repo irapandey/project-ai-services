@@ -12,7 +12,7 @@ ai-services application stop [name] [flags]
 
 ```bash
 ai-services application stop rag-application-1
-ai-services application stop --pod rag-application-1--pod-name
+ai-services application stop rag-application-1 --pod rag-application-1--pod-name
 ```
 
 ### Flags
