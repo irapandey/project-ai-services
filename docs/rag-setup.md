@@ -39,7 +39,7 @@ ai-services application start <app-name> --pod=<app-name>--ingest-docs
 
 ## Access the Chatbot
 
-The chatbot URL is rendered on the terminal once the application is created and can also be viewed by using the `ai-service application info` command.
+The chatbot URL is rendered on the terminal once the application is created and can also be viewed by using the `ai-service application info <app-name>` command.
 
 ```bash
 $ ai-services application info rag-test
