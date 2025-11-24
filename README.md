@@ -68,7 +68,6 @@ Use "ai-services [command] --help" for more information about a command.
 
 ## Repository Structure
 
-
 ```bash
 project-ai-services/
 ├── README.md          # Project documentation
@@ -78,6 +77,4 @@ project-ai-services/
 ├── spyre-rag/         # Spyre RAG implementation
 ├── test/              # Test assets
 │   ├── golden/        # Golden dataset
-
-
 ```
