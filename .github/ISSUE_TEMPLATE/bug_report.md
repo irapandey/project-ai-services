@@ -10,14 +10,6 @@ labels: bug
 <!-- A clear and concise description of what the bug is. -->
 A clear and detailed description of the issue.
 
-## 🔁 Steps to Reproduce
-
-Steps to reproduce the behavior:
-
-1.
-2.
-3.
-
 ## ✅ Expected Behavior
 <!-- A clear and concise description of what you expected to happen. -->
 What should have happened?
@@ -25,6 +17,14 @@ What should have happened?
 ## ❌ Actual Behavior
 <!-- A clear and concise description of what actually happened -->
 What actually happened?
+
+## 🔁 Steps to Reproduce
+
+Steps to reproduce the behavior:
+
+1.
+2.
+3.
 
 ## 🖥️ Environment Info
 

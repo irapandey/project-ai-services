@@ -6,13 +6,11 @@ labels: enhancement
 
 ---
 
-## 📌 User Story
-<!-- Describe who needs this feature, what they need, and why -->
-As a *[type of user]*, I want *[feature]* so that *[benefit]*.
-
 ## 💡 Feature Description
 <!-- Provide a clear and detailed explanation of the feature.
      Include behavior, inputs/outputs, user flows, examples, etc. -->
+**As a *[type of user]*, I want *[feature]* so that *[benefit]*.**
+
 Detailed explanation of what should be added or improved.
 
 ## ❗ Why This Matters
