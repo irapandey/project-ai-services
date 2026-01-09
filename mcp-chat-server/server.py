@@ -6,10 +6,14 @@ Exposes the chat completions endpoint as an MCP tool
 
 import json
 import os
+import warnings
 from typing import Any
 
 import httpx
 from fastmcp import FastMCP
+
+# Suppress websockets.legacy deprecation warning from FastMCP dependencies
+warnings.filterwarnings("ignore", category=DeprecationWarning, module="websockets.legacy")
 
 
 # Configuration
@@ -39,19 +43,19 @@ async def chat_completions(
     Send a chat completion request to the AI model. Supports streaming responses.
     
     Args:
-        messages: Array of message objects with role and content. Each message should have 'role' (user/assistant/system) and 'content' (string).
+        user_input: The user's input message to send to the AI model.
         model: The model to use for completion.
         max_tokens: Maximum number of tokens to generate.
         temperature: Sampling temperature (0.0 to 2.0).
         repetition_penalty: Repetition penalty factor.
-        stop: Stop sequences.
+        stop: Stop sequences (optional, defaults to common stop patterns).
         stream: Whether to stream the response.
     
     Returns:
         The completion text from the AI model.
     """
     if not user_input:
-        raise ValueError("messages cannot be empty")
+        raise ValueError("user_input cannot be empty")
     
     # Use default stop sequences if not provided
     if stop is None:
@@ -64,7 +68,7 @@ async def chat_completions(
         "max_tokens": max_tokens,
         "temperature": temperature,
         "repetition_penalty": repetition_penalty,
-        "stop": ["Context:", "Question:", "\nContext:", "\nAnswer:", "\nQuestion:", "Answer:"],
+        "stop": stop,
         "stream": stream
     }
     
