@@ -89,6 +89,11 @@ def get_reference_docs():
         mimetype="application/json"
     )
 
+# curl http://10.20.188.204:5000/reference \
+#   -H "Content-Type: application/json" \
+#   -d '{
+#     "prompt": "what is power11"
+#   }'
 
 @app.get("/v1/models")
 def list_models():
