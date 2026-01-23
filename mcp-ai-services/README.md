@@ -1,19 +1,17 @@
 # MCP ai-services CLI Server
 
-An MCP (Model Context Protocol) server that exposes the `ai-services` CLI
-version information as an MCP tool.
+An MCP (Model Context Protocol) server that exposes the `ai-services` CLI commands as MCP tools.
 
 ## Overview
 
-This MCP server wraps the `ai-services version` command and makes it available
-as an MCP tool that can be used by MCP clients (e.g. Claude Desktop).
+This MCP server wraps several `ai-services` CLI commands and makes them available
+as MCP tools that can be used by MCP clients (e.g. Claude Desktop).
 
-The tool parses the CLI output and returns:
+The server provides three tools:
 
-- `version`
-- `git_commit`
-- `build_date`
-- `raw_output`
+1. **`ai_services_version`** - Returns version information from the CLI
+2. **`ai_services_templates_info`** - Lists available application templates
+3. **`ai_services_template_images`** - Lists container images for a specific template
 
 ## Installation
 
@@ -94,11 +92,56 @@ documentation for details on calling tools over HTTP.
 }
 ```
 
+### `ai_services_templates_info`
+
+**Description**: Lists all available application templates from the `ai-services` CLI.
+
+**Parameters**:
+
+- `binary_path` (optional, string): Explicit path to the `ai-services` binary.
+  If omitted, the server uses `AI_SERVICES_CLI_PATH` or `ai-services` on `PATH`.
+
+**Result**:
+
+```json
+{
+  "count": 3,
+  "templates": ["fastapi", "go-service", "python-service"],
+  "raw_output": "Available application templates:\n- fastapi\n- go-service\n- python-service"
+}
+```
+
+### `ai_services_template_images`
+
+**Description**: Lists container images used by a specific application template.
+
+**Parameters**:
+
+- `template_name` (required, string): Name of the application template.
+- `binary_path` (optional, string): Explicit path to the `ai-services` binary.
+  If omitted, the server uses `AI_SERVICES_CLI_PATH` or `ai-services` on `PATH`.
+
+**Result**:
+
+```json
+{
+  "template": "fastapi",
+  "count": 2,
+  "images": ["python:3.11-slim", "nginx:alpine"],
+  "raw_output": "Container images for application template 'fastapi':\n- python:3.11-slim\n- nginx:alpine"
+}
+```
+
 ## Development
 
 The server is built using the Python `fastmcp` SDK and uses `asyncio` to execute
-the underlying CLI command. It is intentionally minimal and focused on exposing
-version information, but can be extended with additional tools that wrap other
-`ai-services` subcommands.
+the underlying CLI commands. The server can be extended with additional tools that
+wrap other `ai-services` subcommands by following the existing pattern:
+
+1. Create an async helper function (e.g., `_run_ai_services_<command>`) that
+   executes the CLI command and parses the output.
+2. Create an MCP tool function decorated with `@mcp.tool()` that calls the helper
+   and handles parameter validation.
+3. Update this README to document the new tool.
 
 

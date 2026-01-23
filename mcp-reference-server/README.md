@@ -4,7 +4,7 @@ An MCP (Model Context Protocol) server that exposes the reference documents API 
 
 ## Overview
 
-This MCP server wraps the reference documents API endpoint (`http://10.20.188.204:5000/reference`) and makes it available as an MCP tool that can be used by MCP clients. The reference API uses RAG (Retrieval Augmented Generation) to search a knowledge base and return relevant document chunks for a given prompt.
+This MCP server wraps the reference documents API endpoint (`http://10.20.186.136:5000/reference`) and makes it available as an MCP tool that can be used by MCP clients. The reference API uses RAG (Retrieval Augmented Generation) to search a knowledge base and return relevant document chunks for a given prompt.
 
 ## Features
 
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 The server can be configured using environment variables:
 
-- `REFERENCE_API_URL`: Base URL for the reference API (default: `http://10.20.188.204:5000`)
+- `REFERENCE_API_URL`: Base URL for the reference API (default: `http://10.20.186.136:5000`)
 - `DEFAULT_NUM_CHUNKS_POST_RRF`: Default number of chunks after Reciprocal Rank Fusion (default: `10`)
 - `DEFAULT_NUM_DOCS_RERANKER`: Default number of documents after reranking (default: `3`)
 - `DEFAULT_USE_RERANKER`: Whether to use reranking by default (default: `true`)
@@ -55,7 +55,7 @@ To use this server with an MCP client (like Claude Desktop), add it to your MCP 
       "command": "python",
       "args": ["/path/to/mcp-reference-server/server.py"],
       "env": {
-        "REFERENCE_API_URL": "http://10.20.188.204:5000"
+        "REFERENCE_API_URL": "http://10.20.186.136:5000"
       }
     }
   }

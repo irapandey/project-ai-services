@@ -89,7 +89,7 @@ def get_reference_docs():
         mimetype="application/json"
     )
 
-# curl http://10.20.188.204:5000/reference \
+# curl http://10.20.186.136:5000/reference \
 #   -H "Content-Type: application/json" \
 #   -d '{
 #     "prompt": "what is power11"

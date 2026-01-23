@@ -4,7 +4,7 @@ An MCP (Model Context Protocol) server that exposes the chat completions API end
 
 ## Overview
 
-This MCP server wraps the chat completions API endpoint (`http://10.20.188.204:3000/v1/chat/completions`) and makes it available as an MCP tool that can be used by MCP clients.
+This MCP server wraps the chat completions API endpoint (`http://10.20.186.136:3000/v1/chat/completions`) and makes it available as an MCP tool that can be used by MCP clients.
 
 ## Features
 
@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 The server can be configured using environment variables:
 
-- `CHAT_API_URL`: Base URL for the chat API (default: `http://10.20.188.204:5000`)
+- `CHAT_API_URL`: Base URL for the chat API (default: `http://10.20.186.136:5000`)
 - `DEFAULT_MODEL`: Default model to use (default: `ibm-granite/granite-3.3-8b-instruct`)
 - `DEFAULT_MAX_TOKENS`: Default maximum tokens (default: `512`)
 - `DEFAULT_TEMPERATURE`: Default temperature (default: `0.0`)
@@ -55,7 +55,7 @@ To use this server with an MCP client (like Claude Desktop), add it to your MCP 
       "command": "python",
       "args": ["/path/to/mcp-chat-server/server.py"],
       "env": {
-        "CHAT_API_URL": "http://10.20.188.204:8000",
+        "CHAT_API_URL": "http://10.20.186.136:8000",
         "DEFAULT_MODEL": "ibm-granite/granite-3.3-8b-instruct"
       }
     }

@@ -17,7 +17,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning, module="websocket
 
 
 # Configuration
-API_BASE_URL = os.getenv("CHAT_API_URL", "http://10.20.188.204:5000")
+API_BASE_URL = os.getenv("CHAT_API_URL", "http://10.20.186.136:5000")
 DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "ibm-granite/granite-3.3-8b-instruct")
 DEFAULT_MAX_TOKENS = int(os.getenv("DEFAULT_MAX_TOKENS", "512"))
 DEFAULT_TEMPERATURE = float(os.getenv("DEFAULT_TEMPERATURE", "0.0"))
