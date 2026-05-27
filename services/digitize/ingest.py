@@ -1,18 +1,19 @@
 from pathlib import Path
 import time
-from typing import Optional, Callable
+from typing import Optional
 
 import common.db_utils as db
 from common.emb_utils import get_embedder
 from common.misc_utils import *
 from digitize.doc_utils import process_documents
-from digitize.status import StatusManager, get_utc_timestamp, get_job_document_stats
+from digitize.digitize_utils import get_utc_timestamp, get_job_document_stats
 from digitize.models import JobStatus, DocStatus
 from digitize.settings import settings
+from digitize.db_operations import get_status_manager, DatabaseStatusManager
 
 logger = get_logger("ingest")
 
-def create_indexing_handler(emb_model_dict: dict, status_mgr: Optional[StatusManager], doc_id_dict: Optional[dict]):
+def create_indexing_handler(emb_model_dict: dict, status_mgr: Optional[DatabaseStatusManager], doc_id_dict: Optional[dict]):
     """
     Create an indexing handler that can be called immediately after chunking of a document.
 
@@ -124,10 +125,10 @@ def ingest(directory_path: Path, job_id: Optional[str] = None, doc_id_dict: Opti
     # Initialize LLM session for all API calls (LLM and embedding)
     create_llm_session(pool_maxsize=settings.common.llm.max_batch_size)
 
-    # Initialize status manager
+    # Initialize database-first status manager
     status_mgr = None
     if job_id:
-        status_mgr = StatusManager(job_id)
+        status_mgr = get_status_manager(job_id)
         status_mgr.update_job_progress("", DocStatus.ACCEPTED, JobStatus.IN_PROGRESS)
         logger.info(f"Job {job_id} status updated to IN_PROGRESS")
 
