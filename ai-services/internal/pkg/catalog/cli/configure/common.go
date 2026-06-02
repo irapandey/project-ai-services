@@ -6,10 +6,12 @@ import (
 	"crypto/sha256"
 	"encoding/base64"
 	"fmt"
+	"os"
 
 	catalogPodman "github.com/project-ai-services/ai-services/internal/pkg/catalog/cli/configure/podman"
 	"github.com/project-ai-services/ai-services/internal/pkg/constants"
 	"github.com/project-ai-services/ai-services/internal/pkg/runtime/types"
+	"github.com/project-ai-services/ai-services/internal/pkg/utils"
 	"golang.org/x/crypto/pbkdf2"
 )
 
@@ -40,10 +42,16 @@ func Run(opts ConfigureOptions) error {
 	switch opts.Runtime {
 	case types.RuntimeTypePodman:
 		// Determine Podman URI
-		podmanURI := getPodmanURI()
+		podmanURI, err := utils.ResolvePodmanURI()
+		if err != nil {
+			return fmt.Errorf("failed to generate podman uri: %w", err)
+		}
 
 		// Determine auth file path
-		authFilePath := getAuthFilePath()
+		authFilePath, err := getAuthFilePath()
+		if err != nil {
+			return fmt.Errorf("failed to get auth file path: %w", err)
+		}
 
 		return catalogPodman.DeployCatalog(ctx, podmanURI, authFilePath, passwordHash, opts.BaseDir, opts.ArgParams, opts.HttpsPort)
 
@@ -55,18 +63,13 @@ func Run(opts ConfigureOptions) error {
 	}
 }
 
-// getPodmanURI determines the Podman socket URI.
-func getPodmanURI() string {
-	// TODO: Need to take care for getting rootless socket
-	// Return default local Unix socket
-	return "/run/podman/podman.sock"
-}
-
 // getAuthFilePath determines the auth.json file path.
-func getAuthFilePath() string {
-	// TODO: Need to take care for getting rootless user auth file path
-	// Return default root user auth file path
-	return "/run/user/0/containers/auth.json"
+func getAuthFilePath() (string, error) {
+	if os.Geteuid() == 0 {
+		return "/run/user/0/containers/auth.json", nil
+	}
+
+	return fmt.Sprintf("/run/user/%d/containers/auth.json", os.Getuid()), nil
 }
 
 // hashPasswordPBKDF2 generates a PBKDF2 hash of the password with a random salt.
