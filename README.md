@@ -91,7 +91,7 @@ project-ai-services/
 │   ├── digitize/      # Digitize UI
 │   └── catalog/       # Catalog UI
 ├── images/            # Container base images
-│   ├── service-base/  # Renamed from rag-base
+│   ├── service-base/  # Base image for AI services
 │   ├── postgres/      # PostgreSQL image
 │   ├── litellm/       # LiteLLM proxy
 │   ├── caddy/         # Caddy proxy
