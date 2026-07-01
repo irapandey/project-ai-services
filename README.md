@@ -14,17 +14,6 @@ AI Services, part of the [IBM Open-Source AI Foundation for Power](https://www.i
 
 For detailed platform-specific installation instructions, see [Installation Guide](docs/INSTALLATION.md).
 
-**Supported Platforms:**
-- macOS (Intel x86_64, Apple Silicon ARM64) - Client-only mode
-- Linux (x86_64) - Client-only mode
-- Linux (ppc64le/Power) - Local + Remote mode
-
-**Deployment Modes:**
-- **Client-only mode**: CLI connects to remote OpenShift cluster for application deployment
-- **Local + Remote mode**: Supports both local Podman deployments and remote OpenShift cluster connections
-
-For signature verification with Cosign, see the [Installation Guide](docs/INSTALLATION.md).
-
 ### Run the binary to get started
 
 ```bash
