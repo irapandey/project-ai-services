@@ -34,7 +34,7 @@ pipeline {
 
         // Git repositories
         OPENSEARCH_BUILD_REPO = "https://github.com/opensearch-project/opensearch-build.git"
-        BUILD_SCRIPTS_REPO    = "https://github.com/ppc64le/build-scripts.git"
+        BUILD_SCRIPTS_REPO    = "https://github.com/irapandey/build-scripts.git"
 
         // Workspace
         BUILD_DIR   = "${WORKSPACE}/opensearch-build"
@@ -59,7 +59,7 @@ pipeline {
                     def ver = params.OPENSEARCH_VERSION
 
                     env.OPENSEARCH_BUILD_BRANCH = ver
-                    env.BUILD_SCRIPTS_BRANCH    = 'master'
+                    env.BUILD_SCRIPTS_BRANCH    = 'sep11-PR1448-ais'
                     env.DOCKERFILE_DIR          = "o/opensearch-project-opensearch-build/Dockerfiles/${ver}_ubi9.7"
                     env.PATCH_FILE              = "${env.DOCKERFILE_DIR}/ppc64le-${ver}-ai-services.patch"
                     env.BUILD_ENV_IMAGE         = "opensearch-build-env:${ver}-ppc64le"
