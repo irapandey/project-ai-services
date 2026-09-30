@@ -44,8 +44,7 @@ pipeline {
         // Pushes <OPENSEARCH_VERSION>-<ARCHITECTURE>-<BUILD_NUMBER> to ai-services-private for each build run
         // Pushes <OPENSEARCH_VERSION>-<ARCHITECTURE> to ai-services-cicd when PUSH_RELEASE_TAG toggle is enabled
         ICR_REGISTRY           = "icr.io"
-        IMAGE_NAME             = "icr.io/ai-services-private/opensearch"
-        RELEASE_TAG_IMAGE_NAME = "icr.io/ai-services-cicd/opensearch"
+        IMAGE_NAME             = "icr.io/ai-services-cicd/opensearch"
     }
 
     stages {
@@ -59,7 +58,7 @@ pipeline {
                     def ver = params.OPENSEARCH_VERSION
 
                     env.OPENSEARCH_BUILD_BRANCH = ver
-                    env.BUILD_SCRIPTS_BRANCH    = 'opensearch-3.5.0-ais'
+                    env.BUILD_SCRIPTS_BRANCH    = 'opensearch-ubi9-minimal'
                     env.DOCKERFILE_DIR          = "o/opensearch-project-opensearch-build/Dockerfiles/${ver}_ubi9.7"
                     env.PATCH_FILE              = "${env.DOCKERFILE_DIR}/ppc64le-${ver}-ai-services.patch"
                     env.BUILD_ENV_IMAGE         = "opensearch-build-env:${ver}-ppc64le"
@@ -461,9 +460,10 @@ pipeline {
             steps {
 
                 withCredentials([
-                    string(
-                        credentialsId: 'ais-private-icr',
-                        variable: 'IBM_CLOUD_APIKEY'
+                    usernamePassword(
+                        credentialsId: 'icr-iam-creds',
+                        usernameVariable: 'ICR_USER',
+                        passwordVariable: 'ICR_PASSWORD'
                     )
                 ]) {
 
@@ -473,8 +473,8 @@ pipeline {
                         echo "Logging into IBM Container Registry..."
 
                         set +x
-                        echo "\$IBM_CLOUD_APIKEY" | podman login \
-                            -u iamapikey \
+                        echo "\$ICR_PASSWORD" | podman login \
+                            -u "\$ICR_USER" \
                             --password-stdin \
                             ${ICR_REGISTRY}
                         set -x
@@ -488,7 +488,7 @@ pipeline {
 
                 script {
                     if (params.PUSH_RELEASE_TAG) {
-                        def releaseTag = "${RELEASE_TAG_IMAGE_NAME}:${OPENSEARCH_VERSION}-${ARCHITECTURE}"
+                        def releaseTag = "${IMAGE_NAME}:${OPENSEARCH_VERSION}-${ARCHITECTURE}"
 
                         sh """
                             set -euo pipefail
