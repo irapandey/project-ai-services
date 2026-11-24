@@ -161,18 +161,7 @@ pipeline {
                             ./build.sh \
                                 manifests/${OPENSEARCH_VERSION}/opensearch-${OPENSEARCH_VERSION}.yml \
                                 --platform ${PLATFORM} \
-                                --architecture ${ARCHITECTURE} \
-                                --component OpenSearch \
-                                    common-utils \
-                                    opensearch-remote-metadata-sdk \
-                                    job-scheduler \
-                                    security \
-                                    custom-codecs \
-                                    k-NN \
-                                    ml-commons \
-                                    neural-search \
-                                    opensearch-observability \
-                                    index-management && \
+                                --architecture ${ARCHITECTURE} && \
                             ./assemble.sh tar/builds/opensearch/manifest.yml'
 
                     echo "Copying assembled tar to host..."
