@@ -376,7 +376,7 @@ pipeline {
 
                 withCredentials([
                     usernamePassword(
-                        credentialsId: 'icr-iam-creds',
+                        credentialsId: 'icr-cicd-namespace-creds',
                         usernameVariable: 'ICR_USER',
                         passwordVariable: 'ICR_PASSWORD'
                     )
